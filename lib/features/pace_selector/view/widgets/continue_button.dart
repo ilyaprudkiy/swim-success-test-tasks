@@ -17,7 +17,7 @@ class ContinueButtonWidget extends StatelessWidget {
             backgroundColor: WidgetStateProperty.all<Color>(Colors.blueAccent),
           ),
           onPressed: () {
-            onSubmit;
+            onSubmit();
           },
           child: Text(
             'Continue',

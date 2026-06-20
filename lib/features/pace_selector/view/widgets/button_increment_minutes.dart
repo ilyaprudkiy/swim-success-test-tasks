@@ -20,7 +20,7 @@ class ButtonIncrementMinutesWidget extends StatelessWidget {
       child: Center(
         child: IconButton(
           onPressed: () {
-            onIncrementMinutes;
+            onIncrementMinutes();
           },
           icon: Icon(Icons.keyboard_arrow_up_outlined),
         ),

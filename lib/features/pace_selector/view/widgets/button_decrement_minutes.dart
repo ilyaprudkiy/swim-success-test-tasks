@@ -22,7 +22,7 @@ class ButtonDecrementMinutesWidget extends StatelessWidget {
         child: Center(
           child: IconButton(
             onPressed: () {
-              onDecrementMinutes;
+              onDecrementMinutes();
             },
             icon: Icon(Icons.keyboard_arrow_down_outlined),
           ),

@@ -20,7 +20,7 @@ class ButtonIncrementSecondsWidget extends StatelessWidget {
       child: Center(
         child: IconButton(
           onPressed: () {
-            onIncrementSeconds;
+            onIncrementSeconds();
           },
           icon: Icon(Icons.keyboard_arrow_up_outlined),
         ),
