@@ -1,0 +1,26 @@
+enum SwimmerLevel {
+  beginner,
+  intermediate,
+  advanced,
+  elite;
+
+  static SwimmerLevel fromSeconds(int seconds) {
+    if (seconds <= 65) return SwimmerLevel.elite;
+    if (seconds <= 85) return SwimmerLevel.advanced;
+    if (seconds <= 120) return SwimmerLevel.intermediate;
+    return SwimmerLevel.beginner;
+  }
+
+  String get title {
+    switch (this) {
+      case SwimmerLevel.elite:
+        return 'Elite';
+      case SwimmerLevel.advanced:
+        return 'Advanced';
+      case SwimmerLevel.intermediate:
+        return 'Intermediate';
+      case SwimmerLevel.beginner:
+        return 'Beginner';
+    }
+  }
+}
