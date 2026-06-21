@@ -14,47 +14,51 @@ class PaceSliderSimpleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       children: [
-        SliderTheme(
-          data: SliderTheme.of(context).copyWith(
-            trackHeight: 8,
-
-            activeTrackColor: const Color(0xFF347DFF),
-            inactiveTrackColor: const Color(0xFF202A3A),
-
-            thumbColor: const Color(0xFF347DFF),
-            overlayColor: const Color(0xFF347DFF).withValues(alpha: 0.15),
-
-            thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12),
-
-            overlayShape: const RoundSliderOverlayShape(overlayRadius: 22),
-
-            activeTickMarkColor: Colors.white,
-            inactiveTickMarkColor: Colors.white,
-
-            tickMarkShape: const RoundSliderTickMarkShape(tickMarkRadius: 2),
-          ),
-          child: Slider(
-            min: PaceConstants.minPaceSeconds.toDouble(),
-            max: PaceConstants.maxPaceSeconds.toDouble(),
-            divisions:
-                PaceConstants.maxPaceSeconds - PaceConstants.minPaceSeconds,
-            value: totalSeconds.toDouble(),
-            onChanged: (value) {
-              onSliderChanged(value);
-            },
-          ),
+        Slider(
+          min: PaceConstants.minPaceSeconds.toDouble(),
+          max: PaceConstants.maxPaceSeconds.toDouble(),
+          divisions:
+              PaceConstants.maxPaceSeconds - PaceConstants.minPaceSeconds,
+          value: totalSeconds.toDouble(),
+          onChanged: (value) {
+            onSliderChanged(value);
+          },
         ),
 
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              _PaceLabel(time: '1:10', level: 'Elite'),
-              _PaceLabel(time: '1:30', level: 'Intermediate'),
-              _PaceLabel(time: '2:00', level: 'Beginner'),
+            children: [
+              _PaceLabel(
+                time: '1:10',
+                level: 'Elite',
+                timeStyle: textTheme.labelMedium?.copyWith(
+                  color: colorScheme.onSurface,
+                ),
+                levelStyle: textTheme.bodySmall,
+              ),
+              _PaceLabel(
+                time: '1:30',
+                level: 'Intermediate',
+                timeStyle: textTheme.labelMedium?.copyWith(
+                  color: colorScheme.onSurface,
+                ),
+                levelStyle: textTheme.bodySmall,
+              ),
+              _PaceLabel(
+                time: '2:00',
+                level: 'Beginner',
+                timeStyle: textTheme.labelMedium?.copyWith(
+                  color: colorScheme.onSurface,
+                ),
+                levelStyle: textTheme.bodySmall,
+              ),
             ],
           ),
         ),
@@ -66,16 +70,23 @@ class PaceSliderSimpleWidget extends StatelessWidget {
 class _PaceLabel extends StatelessWidget {
   final String time;
   final String level;
+  final TextStyle? timeStyle;
+  final TextStyle? levelStyle;
 
-  const _PaceLabel({required this.time, required this.level});
+  const _PaceLabel({
+    required this.time,
+    required this.level,
+    required this.timeStyle,
+    required this.levelStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(time, style: const TextStyle(color: Colors.white, fontSize: 14)),
+        Text(time, style: timeStyle),
         const SizedBox(height: 4),
-        Text(level, style: TextStyle(color: Colors.grey, fontSize: 13)),
+        Text(level, style: levelStyle),
       ],
     );
   }

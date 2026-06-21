@@ -1,6 +1,7 @@
 import '../../../core/constants/pace_constants.dart';
 
 class PaceTimeHelper {
+  // Keep the same limits for buttons, slider, and manual input.
   static const int minPaceSeconds = PaceConstants.minPaceSeconds;
   static const int maxPaceSeconds = PaceConstants.maxPaceSeconds;
   static const int initialPaceSeconds = PaceConstants.initialPaceSeconds;
@@ -34,6 +35,7 @@ class PaceTimeHelper {
   }
 
   String? validateManualPace({required int minutes, required int seconds}) {
+    // Manual input is rejected instead of silently fixed by clamp.
     if (minutes < 0) {
       return 'Minutes cannot be negative';
     }
@@ -42,7 +44,6 @@ class PaceTimeHelper {
       return 'Seconds must be between 0 and 59';
     }
 
-    // Manual input is rejected instead of clamped so the user sees the mistake.
     final totalSeconds = minutes * 60 + seconds;
     if (totalSeconds < minPaceSeconds || totalSeconds > maxPaceSeconds) {
       final min = PaceConstants.formatSeconds(minPaceSeconds);

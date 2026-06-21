@@ -5,20 +5,26 @@ class PaceTopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
           onPressed: () {},
-          icon: const Icon(Icons.arrow_back, color: Colors.blueAccent),
+          icon: Icon(Icons.arrow_back, color: colorScheme.primary),
         ),
         const Spacer(),
-        const Text(
+        Text(
           'Pace Selector',
-          style: TextStyle(color: Colors.blueAccent, fontSize: 16),
+          style: textTheme.titleMedium?.copyWith(color: colorScheme.primary),
         ),
         const Spacer(),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.info_outline)),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.info_outline, color: colorScheme.onSurface),
+        ),
       ],
     );
   }

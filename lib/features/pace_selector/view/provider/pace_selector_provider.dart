@@ -6,6 +6,7 @@ import '../../../domain/repositories/pace_repository.dart';
 class PaceSelectorProvider extends ChangeNotifier {
   PaceSelectorProvider(this._paceRepository, this._paceTimeHelper);
 
+  // The provider keeps screen state and delegates pace math to the helper.
   final PaceRepository _paceRepository;
   final PaceTimeHelper _paceTimeHelper;
 
@@ -60,6 +61,7 @@ class PaceSelectorProvider extends ChangeNotifier {
   }
 
   void openManualInput() {
+    // Clear old errors when the user starts a fresh manual edit.
     _showDialogWindow = true;
     _manualInputError = null;
     _errorMessage = null;
@@ -73,6 +75,7 @@ class PaceSelectorProvider extends ChangeNotifier {
   }
 
   bool applyManualPace({required int minutes, required int seconds}) {
+    // Bad manual values should not replace the last valid pace.
     final error = _paceTimeHelper.validateManualPace(
       minutes: minutes,
       seconds: seconds,
@@ -98,6 +101,7 @@ class PaceSelectorProvider extends ChangeNotifier {
   }
 
   Future<void> submitPace() async {
+    // Ignore double taps while the request is already running.
     if (_isLoading) return;
 
     _isLoading = true;
@@ -115,6 +119,7 @@ class PaceSelectorProvider extends ChangeNotifier {
   }
 
   void _updateTotalSeconds(int value) {
+    // Buttons and slider already return a safe value from the helper.
     _totalSeconds = value;
     _errorMessage = null;
     _manualInputError = null;

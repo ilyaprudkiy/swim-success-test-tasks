@@ -10,19 +10,24 @@ class ButtonIncrementSecondsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Ink(
       width: 40,
       height: 40,
       decoration: ShapeDecoration(
         shape: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
-        color: Colors.white60.withValues(alpha: 0.10),
+        color: colorScheme.onSurface.withValues(alpha: 0.10),
       ),
       child: Center(
         child: IconButton(
           onPressed: () {
             onIncrementSeconds();
           },
-          icon: Icon(Icons.keyboard_arrow_up_outlined),
+          icon: Icon(
+            Icons.keyboard_arrow_up_outlined,
+            color: colorScheme.onSurface,
+          ),
         ),
       ),
     );

@@ -5,6 +5,7 @@ enum SwimmerLevel {
   elite;
 
   static SwimmerLevel fromSeconds(int seconds) {
+    // Lower time means a faster swimmer, so the best levels are checked first.
     if (seconds <= 75) return SwimmerLevel.elite;
     if (seconds <= 85) return SwimmerLevel.advanced;
     if (seconds < 110) return SwimmerLevel.intermediate;

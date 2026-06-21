@@ -13,6 +13,9 @@ class PaceTimePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<PaceSelectorProvider>();
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -45,8 +48,8 @@ class PaceTimePicker extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
                 ':',
-                style: TextStyle(
-                  color: Colors.white,
+                style: textTheme.titleLarge?.copyWith(
+                  color: colorScheme.onSurface,
                   fontSize: 24,
                   fontWeight: FontWeight.w800,
                 ),

@@ -8,6 +8,7 @@ class PaceRepositoryImpl implements PaceRepository {
 
   @override
   Future<void> sendPace(int paceSeconds) {
+    // This is the small bridge between domain code and the remote API.
     return _apiService.sendPace(paceSeconds);
   }
 }

@@ -12,28 +12,30 @@ class ContinueButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 25),
       child: SizedBox(
         width: 250,
         height: 50,
         child: TextButton(
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all<Color>(Colors.blueAccent),
-          ),
           onPressed: isLoading ? null : onSubmit,
           child: isLoading
-              ? const SizedBox(
+              ? SizedBox(
                   width: 24,
                   height: 24,
                   child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    color: Colors.white,
+                    color: colorScheme.onPrimary,
                   ),
                 )
-              : const Text(
+              : Text(
                   'Continue',
-                  style: TextStyle(color: Colors.white, fontSize: 24),
+                  style: textTheme.labelLarge?.copyWith(
+                    color: colorScheme.onPrimary,
+                  ),
                 ),
         ),
       ),

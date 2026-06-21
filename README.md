@@ -1,17 +1,53 @@
-# swim_success_test_tasks
+# Swim Success Test Task
 
-A new Flutter project.
+Flutter test task with a pace selector screen for a swimmer's fastest 100m freestyle time.
 
-## Getting Started
+## What The App Does
 
-This project is a starting point for a Flutter application.
+The screen lets the user pick a pace between `1:10` and `2:00`.
 
-A few resources to get you started if this is your first Flutter project:
+The pace can be changed in three ways:
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- minute and second arrow buttons
+- slider
+- manual input dialog after tapping the time cards
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The selected time is converted into a swimmer level: `Elite`, `Advanced`, `Intermediate`, or `Beginner`.
+
+## Project Structure
+
+The code is split into small layers:
+
+- `lib/core` contains shared constants and dependency setup.
+- `lib/core/theme` contains the app theme, shared colors, text styles, button style, input style, and slider style.
+- `lib/features/domain` contains pace rules, helper logic, entities, and repository contracts.
+- `lib/features/data` contains API and repository implementation.
+- `lib/features/pace_selector/view` contains the screen, provider, and widgets.
+
+`PaceSelectorProvider` keeps UI state. It does not calculate all pace rules by itself. The provider asks `PaceTimeHelper` for time changes and uses `PaceRepository` to submit the selected pace.
+
+Most visual styling comes from `AppTheme.dark`, so widgets can use `Theme.of(context)` instead of repeating the same colors everywhere.
+
+## Manual Input Rules
+
+Manual input accepts only digits and limits each field to two characters.
+
+Invalid values do not replace the current pace. For example, `0:00` or `2:30` will show an error and keep the previous valid value.
+
+## Run The App
+
+```shell
+flutter pub get
+flutter run
+```
+
+## Checks
+
+```shell
+flutter analyze
+flutter test
+```
+
+## Notes
+
+The submit request currently uses `jsonplaceholder.typicode.com` as a simple test endpoint.

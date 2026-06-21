@@ -22,6 +22,8 @@ class PaceManualInputDialog extends StatefulWidget {
 }
 
 class _PaceManualInputDialogState extends State<PaceManualInputDialog> {
+  static const int _maxInputDigits = 2;
+
   late final TextEditingController _minutesController;
   late final TextEditingController _secondsController;
   String? _localError;
@@ -47,36 +49,38 @@ class _PaceManualInputDialogState extends State<PaceManualInputDialog> {
   @override
   Widget build(BuildContext context) {
     final errorText = _localError ?? widget.errorText;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return ColoredBox(
-      color: Colors.black.withValues(alpha: 0.55),
+      color: colorScheme.scrim.withValues(alpha: 0.55),
       child: Center(
         child: Material(
-          color: const Color(0xFF111827),
+          color: colorScheme.surface,
           borderRadius: BorderRadius.circular(24),
           child: Container(
             width: 320,
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: Colors.white12),
+              border: Border.all(color: colorScheme.outline),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Enter your pace',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                  style: textTheme.titleLarge?.copyWith(
+                    color: colorScheme.onSurface,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Set minutes and seconds for your fastest 100m freestyle.',
-                  style: TextStyle(color: Colors.white70, fontSize: 14),
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.70),
+                  ),
                 ),
                 const SizedBox(height: 22),
                 Row(
@@ -85,14 +89,15 @@ class _PaceManualInputDialogState extends State<PaceManualInputDialog> {
                       child: _PaceInputField(
                         controller: _minutesController,
                         label: 'Min',
+                        maxDigits: _maxInputDigits,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Text(
                         ':',
-                        style: TextStyle(
-                          color: Colors.white,
+                        style: textTheme.titleLarge?.copyWith(
+                          color: colorScheme.onSurface,
                           fontSize: 28,
                           fontWeight: FontWeight.w800,
                         ),
@@ -102,16 +107,14 @@ class _PaceManualInputDialogState extends State<PaceManualInputDialog> {
                       child: _PaceInputField(
                         controller: _secondsController,
                         label: 'Sec',
+                        maxDigits: _maxInputDigits,
                       ),
                     ),
                   ],
                 ),
                 if (errorText != null) ...[
                   const SizedBox(height: 14),
-                  Text(
-                    errorText,
-                    style: const TextStyle(color: Colors.redAccent),
-                  ),
+                  Text(errorText, style: TextStyle(color: colorScheme.error)),
                 ],
                 const SizedBox(height: 24),
                 Row(
@@ -150,7 +153,7 @@ class _PaceManualInputDialogState extends State<PaceManualInputDialog> {
       return;
     }
 
-    // Domain limits are checked by the provider so the dialog stays UI-only.
+    // The provider checks the real pace range; the dialog only reads the fields.
     final saved = widget.onSave(minutes: minutes, seconds: seconds);
     if (!saved) {
       setState(() {
@@ -161,34 +164,36 @@ class _PaceManualInputDialogState extends State<PaceManualInputDialog> {
 }
 
 class _PaceInputField extends StatelessWidget {
-  const _PaceInputField({required this.controller, required this.label});
+  const _PaceInputField({
+    required this.controller,
+    required this.label,
+    required this.maxDigits,
+  });
 
   final TextEditingController controller;
   final String label;
+  final int maxDigits;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return TextField(
       controller: controller,
       keyboardType: TextInputType.number,
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(maxDigits),
+      ],
+      maxLength: maxDigits,
       textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Colors.white,
+      style: textTheme.titleLarge?.copyWith(
+        color: colorScheme.onSurface,
         fontSize: 30,
         fontWeight: FontWeight.w700,
       ),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: const TextStyle(color: Colors.white70),
-        filled: true,
-        fillColor: Colors.white.withValues(alpha: 0.06),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Color(0xFF347DFF), width: 2),
-        ),
-      ),
+      decoration: InputDecoration(counterText: '', labelText: label),
     );
   }
 }

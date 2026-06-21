@@ -13,7 +13,11 @@ class PaceSelectorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // watch() rebuilds this screen when the selected pace or dialog state changes.
     final provider = context.watch<PaceSelectorProvider>();
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: Material(
         child: Stack(
@@ -27,7 +31,9 @@ class PaceSelectorScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       Text(
                         'Your fastest 100m freestyle',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style: textTheme.titleMedium?.copyWith(
+                          color: textTheme.bodySmall?.color,
+                        ),
                       ),
                       SizedBox(height: 25),
                       PaceTimePicker(),
@@ -49,7 +55,7 @@ class PaceSelectorScreen extends StatelessWidget {
                           child: Text(
                             provider.errorMessage!,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(color: Colors.redAccent),
+                            style: TextStyle(color: colorScheme.error),
                           ),
                         ),
                       ContinueButtonWidget(
@@ -61,7 +67,7 @@ class PaceSelectorScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // The provider owns this flag, so opening and closing is easy to test.
+            // The provider owns this flag, so opening and closing stays in one place.
             if (provider.showDialogWindow)
               PaceManualInputDialog(
                 initialMinutes: provider.minutes,

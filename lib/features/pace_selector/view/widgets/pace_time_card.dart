@@ -14,6 +14,9 @@ class PaceTimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return InkWell(
       borderRadius: BorderRadius.circular(10),
       onTap: onTap,
@@ -23,23 +26,28 @@ class PaceTimeCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(width: 1),
-          boxShadow: [BoxShadow(color: Colors.white60.withValues(alpha: 0.10))],
+          boxShadow: [
+            BoxShadow(color: colorScheme.onSurface.withValues(alpha: 0.10)),
+          ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(label, style: TextStyle(color: Colors.white)),
+            Text(
+              label,
+              style: textTheme.labelMedium?.copyWith(
+                color: colorScheme.onSurface,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
                   value,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 46,
-                    fontWeight: FontWeight.w800,
+                  style: textTheme.displayMedium?.copyWith(
+                    color: colorScheme.onSurface,
                   ),
                 ),
               ),
