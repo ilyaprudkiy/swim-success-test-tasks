@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 
 class PaceTimeCard extends StatelessWidget {
-  const PaceTimeCard({super.key, required this.label, required this.value});
+  const PaceTimeCard({
+    super.key,
+    required this.label,
+    required this.value,
+    required this.onTap,
+  });
 
   final String label;
   final String value;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(onTap: (){
-
-    },
-      child: Container(
+    return InkWell(
+      borderRadius: BorderRadius.circular(10),
+      onTap: onTap,
+      child: Ink(
         width: 100,
         height: 100,
         decoration: BoxDecoration(
@@ -21,16 +27,20 @@ class PaceTimeCard extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(label, style: TextStyle(color: Colors.white)),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text(
-                value,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 46,
-                  fontWeight: FontWeight.w800,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  value,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 46,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
@@ -40,6 +50,3 @@ class PaceTimeCard extends StatelessWidget {
     );
   }
 }
-
-
-

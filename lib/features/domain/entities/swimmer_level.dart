@@ -5,9 +5,9 @@ enum SwimmerLevel {
   elite;
 
   static SwimmerLevel fromSeconds(int seconds) {
-    if (seconds <= 65) return SwimmerLevel.elite;
+    if (seconds <= 75) return SwimmerLevel.elite;
     if (seconds <= 85) return SwimmerLevel.advanced;
-    if (seconds <= 120) return SwimmerLevel.intermediate;
+    if (seconds < 110) return SwimmerLevel.intermediate;
     return SwimmerLevel.beginner;
   }
 

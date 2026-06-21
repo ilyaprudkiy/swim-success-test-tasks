@@ -10,18 +10,15 @@ class PaceTopBar extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () {},
-          icon: Icon(Icons.arrow_back, color: Colors.blueAccent),
+          icon: const Icon(Icons.arrow_back, color: Colors.blueAccent),
         ),
-        Spacer(),
-        Text(
+        const Spacer(),
+        const Text(
           'Pace Selector',
           style: TextStyle(color: Colors.blueAccent, fontSize: 16),
         ),
-        Spacer(),
-        IconButton(
-          onPressed: () {},
-          icon: IconButton(onPressed: () {}, icon: Icon(Icons.info_outline)),
-        ),
+        const Spacer(),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.info_outline)),
       ],
     );
   }

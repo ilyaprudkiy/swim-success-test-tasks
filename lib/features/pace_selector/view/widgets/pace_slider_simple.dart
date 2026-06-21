@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/pace_constants.dart';
 
 class PaceSliderSimpleWidget extends StatelessWidget {
   final int totalSeconds;
@@ -35,12 +36,13 @@ class PaceSliderSimpleWidget extends StatelessWidget {
             tickMarkShape: const RoundSliderTickMarkShape(tickMarkRadius: 2),
           ),
           child: Slider(
-            min: 70,
-            max: 120,
-            divisions: 2,
+            min: PaceConstants.minPaceSeconds.toDouble(),
+            max: PaceConstants.maxPaceSeconds.toDouble(),
+            divisions:
+                PaceConstants.maxPaceSeconds - PaceConstants.minPaceSeconds,
             value: totalSeconds.toDouble(),
             onChanged: (value) {
-              onSliderChanged;
+              onSliderChanged(value);
             },
           ),
         ),

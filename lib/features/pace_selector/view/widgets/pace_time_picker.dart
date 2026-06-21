@@ -21,13 +21,13 @@ class PaceTimePicker extends StatelessWidget {
           children: [
             ButtonIncrementMinutesWidget(
               onIncrementMinutes: () {
-                provider.incrementMinutes();
+                provider.increaseMinutes();
               },
             ),
             SizedBox(width: 130),
             ButtonIncrementSecondsWidget(
               onIncrementSeconds: () {
-                provider.incrementSeconds();
+                provider.increaseSeconds();
               },
             ),
           ],
@@ -39,6 +39,7 @@ class PaceTimePicker extends StatelessWidget {
             PaceTimeCard(
               label: 'Min',
               value: provider.minutes.toString().padLeft(2, '0'),
+              onTap: provider.openManualInput,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -54,6 +55,7 @@ class PaceTimePicker extends StatelessWidget {
             PaceTimeCard(
               label: 'Sec',
               value: provider.seconds.toString().padLeft(2, '0'),
+              onTap: provider.openManualInput,
             ),
           ],
         ),
@@ -63,14 +65,14 @@ class PaceTimePicker extends StatelessWidget {
           children: [
             ButtonDecrementMinutesWidget(
               onDecrementMinutes: () {
-                provider.decrementMinutes();
+                provider.decreaseMinutes();
               },
             ),
             SizedBox(width: 130),
 
             ButtonDecrementSecondsWidget(
               onDecrementSeconds: () {
-                provider.decrementSeconds();
+                provider.decreaseSeconds();
               },
             ),
           ],
